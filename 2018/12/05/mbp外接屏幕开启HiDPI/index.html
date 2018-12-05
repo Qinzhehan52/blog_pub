@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="SeekRVL 的笔记">
 <meta property="og:description" content="mbp 外接显示器开启HiDPI1. 首先，打开系统分区权限：查看SIP状态在终端中输入csrutil status，就可以看到是enabled还是disabled。 关闭SIP- 重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式；  - 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable；  - 关掉终端，重启mac">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-05T08:34:00.122Z">
+<meta property="og:updated_time" content="2018-12-05T10:20:57.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SeekRVL 的笔记">
 <meta name="twitter:description" content="mbp 外接显示器开启HiDPI1. 首先，打开系统分区权限：查看SIP状态在终端中输入csrutil status，就可以看到是enabled还是disabled。 关闭SIP- 重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式；  - 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable；  - 关掉终端，重启mac">
@@ -172,7 +172,7 @@
 </code></pre><h2 id="3-生成我们需要的配置文件"><a href="#3-生成我们需要的配置文件" class="headerlink" title="3. 生成我们需要的配置文件"></a>3. 生成我们需要的配置文件</h2><p>   使用该网页生成器填写所需信息，生成配置并下载<a href="https://comsysto.github.io/Display-Override-PropertyList-File-Parser-and-Generator-with-HiDPI-Support-For-Scaled-Resolutions/" target="_blank" rel="noopener">HiDPI配置生成器</a></p>
 <h2 id="4-复制配置到系统目录"><a href="#4-复制配置到系统目录" class="headerlink" title="4. 复制配置到系统目录"></a>4. 复制配置到系统目录</h2><ul>
 <li><p>OS X 10.11及以上</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Contents/Resources/Overrides&lt;/code&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Contents/Resources/Overrides</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>OS X 10.10及以下</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Overrides</span><br></pre></td></tr></table></figure>
