@@ -159,13 +159,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/29/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/12/05/hello-world/">Hello World</a>
     </h1>
   
 
         
-        <a href="/2018/10/29/hello-world/" class="archive-article-date">
-  	<time datetime="2018-10-29T08:02:04.526Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-29</time>
+        <a href="/2018/12/05/hello-world/" class="archive-article-date">
+  	<time datetime="2018-12-05T08:34:00.122Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
 </a>
         
       </header>
@@ -193,7 +193,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/29/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/05/hello-world/">展开全文 >></a>
         </p>
       
 
@@ -228,14 +228,30 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="mbp-外接显示器开启HiDPI"><a href="#mbp-外接显示器开启HiDPI" class="headerlink" title="mbp 外接显示器开启HiDPI"></a>mbp 外接显示器开启HiDPI</h1><ul>
-<li>首先，下载一个脚本</li>
+        <h1 id="mbp-外接显示器开启HiDPI"><a href="#mbp-外接显示器开启HiDPI" class="headerlink" title="mbp 外接显示器开启HiDPI"></a>mbp 外接显示器开启HiDPI</h1><h2 id="1-首先，打开系统分区权限："><a href="#1-首先，打开系统分区权限：" class="headerlink" title="1. 首先，打开系统分区权限："></a>1. 首先，打开系统分区权限：</h2><h3 id="查看SIP状态"><a href="#查看SIP状态" class="headerlink" title="查看SIP状态"></a>查看SIP状态</h3><pre><code>在终端中输入csrutil status，就可以看到是enabled还是disabled。
+</code></pre><h3 id="关闭SIP"><a href="#关闭SIP" class="headerlink" title="关闭SIP"></a>关闭SIP</h3><pre><code>- 重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式；
+
+- 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable；
+
+- 关掉终端，重启mac；
+- 重启以后可以在终端中查看状态确认。
+</code></pre><h3 id="开启SIP"><a href="#开启SIP" class="headerlink" title="开启SIP"></a>开启SIP</h3><pre><code>与关闭的步骤类似，只是在S2中输入csrutil enable即可。[转自简书 Mac开启关闭SIP（系统完整性保护）](https://www.jianshu.com/p/fe78d2036192)
+</code></pre><h2 id="2-获得显示器的-VendorID-和-ProductID-（制造商ID-和-产品ID），在终端运行："><a href="#2-获得显示器的-VendorID-和-ProductID-（制造商ID-和-产品ID），在终端运行：" class="headerlink" title="2. 获得显示器的 VendorID 和 ProductID （制造商ID 和 产品ID），在终端运行："></a>2. 获得显示器的 VendorID 和 ProductID （制造商ID 和 产品ID），在终端运行：</h2>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; ioreg -lw0 | grep IODisplayPrefsKey | grep -o <span class="string">'/[^/]\+"$'</span></span><br><span class="line"></span><br><span class="line">/AppleBacklightDisplay-610-a034<span class="string">"</span></span><br><span class="line"><span class="string">/AppleDisplay-30ae-61a4"</span></span><br></pre></td></tr></table></figure>
+<pre><code>其中第一行610代表的是mac内置显示器，第二行即我们的外接显示器，VendorID=30ae，ProductID=61a4
+</code></pre><h2 id="3-生成我们需要的配置文件"><a href="#3-生成我们需要的配置文件" class="headerlink" title="3. 生成我们需要的配置文件"></a>3. 生成我们需要的配置文件</h2><p>   使用该网页生成器填写所需信息，生成配置并下载<a href="https://comsysto.github.io/Display-Override-PropertyList-File-Parser-and-Generator-with-HiDPI-Support-For-Scaled-Resolutions/" target="_blank" rel="noopener">HiDPI配置生成器</a></p>
+<h2 id="4-复制配置到系统目录"><a href="#4-复制配置到系统目录" class="headerlink" title="4. 复制配置到系统目录"></a>4. 复制配置到系统目录</h2><ul>
+<li><p>OS X 10.11及以上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Contents/Resources/Overrides&lt;/code&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OS X 10.10及以下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Overrides</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 ${VID} 和 ${PID} 替换成上面获得的VendorID和ProductID</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONF=<span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span>/DisplayProductID-<span class="variable">$&#123;PID&#125;</span></span><br><span class="line">sudo mkdir -p <span class="variable">$&#123;DIR&#125;</span></span><br><span class="line">sudo cp 配置文件 <span class="variable">$&#123;CONF&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl -o ~/<span class="built_in">enable</span>-HiDPI.sh https://raw.githubusercontent.com/syscl/Enable-HiDPI-OSX/master/<span class="built_in">enable</span>-HiDPI.sh</span><br><span class="line"></span><br><span class="line">&gt; chmod +x ~/<span class="built_in">enable</span>-HiDPI.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 回车</span></span><br><span class="line"></span><br><span class="line">&gt; ~/<span class="built_in">enable</span>-HiDPI.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择要调整的显示器</span></span><br><span class="line"><span class="comment">#开盖时运行脚本 第二个是外接显示器的信息，盒盖情况下就只有外接显示器的信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 回车，然后会提示你输入分辨率。例:我需要它渲染3440X1440的HiDPI，就直接输入</span></span><br><span class="line"></span><br><span class="line">&gt; 5880X2880        //希望渲染的实际分辨率的两倍</span><br><span class="line"></span><br><span class="line"><span class="comment"># 回车再输入</span></span><br><span class="line"></span><br><span class="line">&gt; 3440X1440        //希望渲染的实际分辨率</span><br></pre></td></tr></table></figure>
-<ul>
-<li>重启后发现并没有生效（笑，其实这个脚本不是很好用）</li>
-</ul>
-<p>fix…</p>
+<h2 id="5-重启并使用RDM调整分辨率"><a href="#5-重启并使用RDM调整分辨率" class="headerlink" title="5.重启并使用RDM调整分辨率"></a>5.重启并使用RDM调整分辨率</h2><p> <a href="http://avi.alkalay.net/software/RDM/" target="_blank" rel="noopener">下载RDM</a></p>
+ 
 
       
 
@@ -248,7 +264,62 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/29/mbp外接屏幕开启HiDPI/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/05/mbp外接屏幕开启HiDPI/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-v2ray体验" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title:  v2ray体验</p>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>迫于ssr遭遇gfw特殊照顾，听说v2ray效果不错，来体验下风味不同的科学上网姿势。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="本人环境"><a href="#本人环境" class="headerlink" title="本人环境"></a>本人环境</h3><p>Linux ubuntu-*** 4.15.0-34-generic #37-Ubuntu SMP Mon Aug 27 15:21:48 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</p>
+<h3 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h3><p>脚本下载一键安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu-***:~<span class="comment"># wget https://install.direct/go.sh</span></span><br><span class="line">--2018-11-27 09:26:40--  https://install.direct/go.sh</span><br><span class="line">Resolving install.direct (install.direct)... 2606:4700:30::681b:af47, 2606:4700:30::681b:ae47, 104.27.175.71, ...</span><br><span class="line">Connecting to install.direct (install.direct)|2606:4700:30::681b:af47|:443... connected.</span><br><span class="line">HTTP request sent, awaiting response... 200 OK</span><br><span class="line">Length: unspecified [text/plain]</span><br><span class="line">Saving to: ‘go.sh’</span><br><span class="line"></span><br><span class="line">go.sh                   [ &lt;=&gt;                ]  13.32K  --.-KB/s    <span class="keyword">in</span> 0s</span><br><span class="line"></span><br><span class="line">2018-11-27 09:26:41 (79.6 MB/s) - ‘go.sh’ saved [13636]</span><br><span class="line"></span><br><span class="line">root@ubuntu-***:~<span class="comment"># bash go.sh</span></span><br><span class="line">Installing V2Ray v4.6.0 on x86_64</span><br><span class="line">Downloading V2Ray.</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   608    0   608    0     0   2620      0 --:--:-- --:--:-- --:--:--  2620</span><br><span class="line">100 11.9M  100 11.9M    0     0  18.4M      0 --:--:-- --:--:-- --:--:-- 31.1M</span><br><span class="line">Extracting V2Ray package to /tmp/v2ray.</span><br><span class="line">Archive:  /tmp/v2ray/v2ray.zip</span><br><span class="line">  inflating: /tmp/v2ray/config.json</span><br><span class="line">   creating: /tmp/v2ray/doc/</span><br><span class="line">  inflating: /tmp/v2ray/doc/readme.md</span><br><span class="line">  inflating: /tmp/v2ray/geoip.dat</span><br><span class="line">  inflating: /tmp/v2ray/geosite.dat</span><br><span class="line">   creating: /tmp/v2ray/systemd/</span><br><span class="line">  inflating: /tmp/v2ray/systemd/v2ray.service</span><br><span class="line">   creating: /tmp/v2ray/systemv/</span><br><span class="line">  inflating: /tmp/v2ray/systemv/v2ray</span><br><span class="line">  inflating: /tmp/v2ray/v2ctl</span><br><span class="line"> extracting: /tmp/v2ray/v2ctl.sig</span><br><span class="line">  inflating: /tmp/v2ray/v2ray</span><br><span class="line"> extracting: /tmp/v2ray/v2ray.sig</span><br><span class="line">  inflating: /tmp/v2ray/vpoint_socks_vmess.json</span><br><span class="line">  inflating: /tmp/v2ray/vpoint_vmess_freedom.json</span><br><span class="line">PORT:17230</span><br><span class="line">UUID:5da1587f-4685-443a-9e07-4dd681f8c87c</span><br><span class="line">Created symlink /etc/systemd/system/multi-user.target.wants/v2ray.service → /etc/systemd/system/v2ray.service.</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>VMess 协议是由 V2Ray 原创并使用于 V2Ray 的加密传输协议，如同 Shadowsocks 一样为了对抗墙的<a href="https://zh.wikipedia.org/wiki/%E6%B7%B1%E5%BA%A6%E5%8C%85%E6%A3%80%E6%B5%8B" target="_blank" rel="noopener">深度包检测</a>而研发的。在 V2Ray 上客户端与服务器的通信主要是通过 VMess 协议通信。</p>
+<p>本小节给出了 VMess 的配置文件，其实也就是服务器和客户端的基本配置文件，这是 V2Ray 能够运行的最简单的配置。</p>
+<p>V2Ray 使用 inbound(传入) 和 outbound(传出) 的结构，这样的结构非常清晰地体现了数据包的流动方向，同时也使得 V2Ray 功能强大复杂的同时而不混乱，清晰明了。形象地说，我们可以把 V2Ray 当作一个盒子，这个盒子有入口和出口(即 inbound 和 outbound)，我们将数据包通过某个入口放进这个盒子里，然后这个盒子以某种机制（这个机制其实就是路由，后面会讲到）决定这个数据包从哪个出口吐出来。以这样的角度理解的话，V2Ray 做客户端，则 inbound 接收来自浏览器数据，由 outbound 发出去(通常是发到 V2Ray 服务器)；V2Ray 做服务器，则 inbound 接收来自 V2Ray 客户端的数据，由 outbound 发出去(通常是如 Google 等想要访问的目标网站)。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/05/v2ray体验/">展开全文 >></a>
         </p>
       
 
