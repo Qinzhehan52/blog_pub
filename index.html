@@ -254,7 +254,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/19/docker部署lnmp/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/17/docker部署lnmp/">展开全文 >></a>
         </p>
       
 
@@ -316,10 +316,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Overrides</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>把 VID 和 PID 替换成上面获得的VendorID和ProductID</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONF=<span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span>/DisplayProductID-<span class="variable">$&#123;PID&#125;</span></span><br><span class="line">sudo mkdir -p <span class="variable">$&#123;DIR&#125;</span></span><br><span class="line">sudo cp 配置文件 <span class="variable">$&#123;CONF&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONF=<span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span>/DisplayProductID-<span class="variable">$&#123;PID&#125;</span></span><br><span class="line">sudo mkdir -p <span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span></span><br><span class="line">sudo cp 配置文件 <span class="variable">$&#123;CONF&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="5-重启并使用RDM调整分辨率"><a href="#5-重启并使用RDM调整分辨率" class="headerlink" title="5.重启并使用RDM调整分辨率"></a>5.重启并使用RDM调整分辨率</h2><p> <a href="http://avi.alkalay.net/software/RDM/" target="_blank" rel="noopener">下载RDM</a></p>
+<h2 id="5-打开系统HIDPI设置"><a href="#5-打开系统HIDPI设置" class="headerlink" title="5. 打开系统HIDPI设置"></a>5. 打开系统HIDPI设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool YES</span><br></pre></td></tr></table></figure>
+<h2 id="6-重启并使用RDM调整分辨率"><a href="#6-重启并使用RDM调整分辨率" class="headerlink" title="6. 重启并使用RDM调整分辨率"></a>6. 重启并使用RDM调整分辨率</h2><p> <a href="http://avi.alkalay.net/software/RDM/" target="_blank" rel="noopener">下载RDM</a></p>
 
       
 
@@ -332,7 +333,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/19/mbp外接屏幕开启HiDPI/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/17/mbp外接屏幕开启HiDPI/">展开全文 >></a>
         </p>
       
 
@@ -386,7 +387,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/19/v2ray体验/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/04/17/v2ray体验/">展开全文 >></a>
         </p>
       
 

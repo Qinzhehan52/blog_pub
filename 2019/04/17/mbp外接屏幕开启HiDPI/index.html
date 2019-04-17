@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://blog.netberd.top">
-  <title>Archives: 2019/3 | SeekRVL 的笔记</title>
+  <title>SeekRVL 的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="mbp 外接显示器开启HiDPI1. 首先，打开系统分区权限：查看SIP状态 在终端中输入csrutil status，就可以看到是enabled还是disabled。  关闭SIP  重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式； 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable； 关掉终端，重启mac； 重启">
+<meta property="og:type" content="article">
 <meta property="og:title" content="SeekRVL 的笔记">
-<meta property="og:url" content="http://blog.netberd.top/archives/2019/03/index.html">
+<meta property="og:url" content="http://blog.netberd.top/2019/04/17/mbp外接屏幕开启HiDPI/index.html">
 <meta property="og:site_name" content="SeekRVL 的笔记">
+<meta property="og:description" content="mbp 外接显示器开启HiDPI1. 首先，打开系统分区权限：查看SIP状态 在终端中输入csrutil status，就可以看到是enabled还是disabled。  关闭SIP  重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式； 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable； 关掉终端，重启mac； 重启">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-17T12:31:33.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SeekRVL 的笔记">
+<meta name="twitter:description" content="mbp 外接显示器开启HiDPI1. 首先，打开系统分区权限：查看SIP状态 在终端中输入csrutil status，就可以看到是enabled还是disabled。  关闭SIP  重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式； 在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable； 关掉终端，重启mac； 重启">
   
     <link rel="alternative" href="/atom.xml" title="SeekRVL 的笔记" type="application/atom+xml">
   
@@ -144,85 +148,181 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mbp外接屏幕开启HiDPI" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="mbp-外接显示器开启HiDPI"><a href="#mbp-外接显示器开启HiDPI" class="headerlink" title="mbp 外接显示器开启HiDPI"></a>mbp 外接显示器开启HiDPI</h1><h2 id="1-首先，打开系统分区权限："><a href="#1-首先，打开系统分区权限：" class="headerlink" title="1. 首先，打开系统分区权限："></a>1. 首先，打开系统分区权限：</h2><h3 id="查看SIP状态"><a href="#查看SIP状态" class="headerlink" title="查看SIP状态"></a>查看SIP状态</h3><blockquote>
+<p>在终端中输入csrutil status，就可以看到是enabled还是disabled。</p>
+</blockquote>
+<h3 id="关闭SIP"><a href="#关闭SIP" class="headerlink" title="关闭SIP"></a>关闭SIP</h3><blockquote>
+<ul>
+<li>重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式；</li>
+<li>在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable；</li>
+<li>关掉终端，重启mac；</li>
+<li>重启以后可以在终端中查看状态确认。</li>
+</ul>
+</blockquote>
+<h3 id="开启SIP"><a href="#开启SIP" class="headerlink" title="开启SIP"></a>开启SIP</h3><blockquote>
+<p>与关闭的步骤类似，只是在S2中输入csrutil enable即可。<a href="https://www.jianshu.com/p/fe78d2036192" target="_blank" rel="noopener">转自简书 Mac开启关闭SIP（系统完整性保护）</a></p>
+</blockquote>
+<h2 id="2-获得显示器的-VendorID-和-ProductID-（制造商ID-和-产品ID），在终端运行："><a href="#2-获得显示器的-VendorID-和-ProductID-（制造商ID-和-产品ID），在终端运行：" class="headerlink" title="2. 获得显示器的 VendorID 和 ProductID （制造商ID 和 产品ID），在终端运行："></a>2. 获得显示器的 VendorID 和 ProductID （制造商ID 和 产品ID），在终端运行：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; ioreg -lw0 | grep IODisplayPrefsKey | grep -o <span class="string">'/[^/]\+"$'</span></span><br><span class="line"></span><br><span class="line">/AppleBacklightDisplay-610-a034<span class="string">"</span></span><br><span class="line"><span class="string">/AppleDisplay-30ae-61a4"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其中第一行610代表的是mac内置显示器，第二行即我们的外接显示器，VendorID=30ae，ProductID=61a4</p>
+</blockquote>
+<h2 id="3-生成我们需要的配置文件"><a href="#3-生成我们需要的配置文件" class="headerlink" title="3. 生成我们需要的配置文件"></a>3. 生成我们需要的配置文件</h2><p>   使用该网页生成器填写所需信息，生成配置并下载<a href="https://comsysto.github.io/Display-Override-PropertyList-File-Parser-and-Generator-with-HiDPI-Support-For-Scaled-Resolutions/" target="_blank" rel="noopener">HiDPI配置生成器</a></p>
+<h2 id="4-复制配置到系统目录"><a href="#4-复制配置到系统目录" class="headerlink" title="4. 复制配置到系统目录"></a>4. 复制配置到系统目录</h2><ul>
+<li><p>OS X 10.11及以上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Contents/Resources/Overrides</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OS X 10.10及以下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DIR=/System/Library/Displays/Overrides</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 VID 和 PID 替换成上面获得的VendorID和ProductID</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CONF=<span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span>/DisplayProductID-<span class="variable">$&#123;PID&#125;</span></span><br><span class="line">sudo mkdir -p <span class="variable">$&#123;DIR&#125;</span>/DisplayVendorID-<span class="variable">$&#123;VID&#125;</span></span><br><span class="line">sudo cp 配置文件 <span class="variable">$&#123;CONF&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="5-打开系统HIDPI设置"><a href="#5-打开系统HIDPI设置" class="headerlink" title="5. 打开系统HIDPI设置"></a>5. 打开系统HIDPI设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool YES</span><br></pre></td></tr></table></figure>
+<h2 id="6-重启并使用RDM调整分辨率"><a href="#6-重启并使用RDM调整分辨率" class="headerlink" title="6. 重启并使用RDM调整分辨率"></a>6. 重启并使用RDM调整分辨率</h2><p> <a href="http://avi.alkalay.net/software/RDM/" target="_blank" rel="noopener">下载RDM</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>扫码投食<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/19/docker部署lnmp/" class="archive-article-date">
-  	<time datetime="2019-03-19T06:04:28.028Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://blog.netberd.top/2019/04/17/mbp外接屏幕开启HiDPI/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/19/mbp外接屏幕开启HiDPI/" class="archive-article-date">
-  	<time datetime="2019-03-19T06:04:28.028Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/19/v2ray体验/" class="archive-article-date">
-  	<time datetime="2019-03-19T06:04:28.028Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+    <a href="/2019/04/17/docker部署lnmp/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/04/17/v2ray体验/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -245,8 +345,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

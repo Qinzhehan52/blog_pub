@@ -6,22 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://blog.netberd.top">
-  <title>SeekRVL 的笔记</title>
+  <title>Archives: 2019/4 | SeekRVL 的笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="docker 部署 LNMPdocker 简介什么是docker Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及AUFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。   Docker 在容器的基础上，进行了">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="SeekRVL 的笔记">
-<meta property="og:url" content="http://blog.netberd.top/2019/03/19/docker部署lnmp/index.html">
+<meta property="og:url" content="http://blog.netberd.top/archives/2019/04/index.html">
 <meta property="og:site_name" content="SeekRVL 的笔记">
-<meta property="og:description" content="docker 部署 LNMPdocker 简介什么是docker Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及AUFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。   Docker 在容器的基础上，进行了">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://yeasy.gitbooks.io/docker_practice/introduction/_images/virtualization.png">
-<meta property="og:image" content="https://yeasy.gitbooks.io/docker_practice/introduction/_images/docker.png">
-<meta property="og:updated_time" content="2019-03-19T06:04:28.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SeekRVL 的笔记">
-<meta name="twitter:description" content="docker 部署 LNMPdocker 简介什么是docker Docker 使用 Google 公司推出的 Go 语言 进行开发实现，基于 Linux 内核的 cgroup，namespace，以及AUFS 类的 Union FS 等技术，对进程进行封装隔离，属于 操作系统层面的虚拟化技术。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。   Docker 在容器的基础上，进行了">
-<meta name="twitter:image" content="https://yeasy.gitbooks.io/docker_practice/introduction/_images/virtualization.png">
   
     <link rel="alternative" href="/atom.xml" title="SeekRVL 的笔记" type="application/atom+xml">
   
@@ -151,231 +144,85 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-docker部署lnmp" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <h1 id="docker-部署-LNMP"><a href="#docker-部署-LNMP" class="headerlink" title="docker 部署 LNMP"></a>docker 部署 LNMP</h1><h2 id="docker-简介"><a href="#docker-简介" class="headerlink" title="docker 简介"></a>docker 简介</h2><h3 id="什么是docker"><a href="#什么是docker" class="headerlink" title="什么是docker"></a>什么是docker</h3><blockquote>
-<p>Docker 使用 Google 公司推出的 <a href="https://golang.org/" target="_blank" rel="noopener">Go 语言</a> 进行开发实现，基于 Linux 内核的 <a href="https://zh.wikipedia.org/wiki/Cgroups" target="_blank" rel="noopener">cgroup</a>，<a href="https://en.wikipedia.org/wiki/Linux_namespaces" target="_blank" rel="noopener">namespace</a>，以及<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="noopener">AUFS</a> 类的 <a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="noopener">Union FS</a> 等技术，对进程进行封装隔离，属于 <a href="https://en.wikipedia.org/wiki/Operating-system-level_virtualization" target="_blank" rel="noopener">操作系统层面的虚拟化技术</a>。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</p>
-</blockquote>
-<blockquote>
-<p>Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻便、快捷。</p>
-</blockquote>
-<blockquote>
-<p>下面的图片比较了 Docker 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需应用进程；而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟。因此容器要比传统虚拟机更为轻便。</p>
-</blockquote>
-<p><img src="https://yeasy.gitbooks.io/docker_practice/introduction/_images/virtualization.png" alt="ä¼ ç&quot;èæå"></p>
-<p><img src="https://yeasy.gitbooks.io/docker_practice/introduction/_images/docker.png" alt="Docker"></p>
-<h3 id="为什么要用docker"><a href="#为什么要用docker" class="headerlink" title="为什么要用docker"></a>为什么要用docker</h3><h4 id="企业应用"><a href="#企业应用" class="headerlink" title="企业应用"></a>企业应用</h4><ul>
-<li>更高效的利用系统资源</li>
-<li>更快速的启动时间</li>
-<li>一致的运行环境</li>
-<li>持续交付和部署</li>
-<li>更轻松的迁移</li>
-<li>更轻松的维护和拓展</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>容器</th>
-<th>虚拟机</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>启动</td>
-<td>秒级</td>
-<td>分钟级</td>
-</tr>
-<tr>
-<td>硬盘使用</td>
-<td>一般为 <code>MB</code></td>
-<td>一般为 <code>GB</code></td>
-</tr>
-<tr>
-<td>性能</td>
-<td>接近原生</td>
-<td>弱于</td>
-</tr>
-<tr>
-<td>系统支持量</td>
-<td>单机支持上千个容器</td>
-<td>一般几十个</td>
-</tr>
-</tbody>
-</table>
-<h4 id="个人开发"><a href="#个人开发" class="headerlink" title="个人开发"></a>个人开发</h4><ul>
-<li>便于搭建部署 （通过下载并修改其他优秀的docker项目）</li>
-<li>便于备份迁移 （可将docker配置备份于repo，在各个云主机、vps及自己的笔记本上一致）</li>
-<li>便于实验新特性 （建议在云主机上进行，镜像有一定体积，云主机网速较快）</li>
-</ul>
-<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><blockquote>
-<p>镜像：我们都知道，操作系统分为内核和用户空间。对于 Linux 而言，内核启动后，会挂载 <code>root</code> 文件系统为其提供用户空间支持。而 Docker 镜像（Image），就相当于是一个 <code>root</code> 文件系统。</p>
-<p>Docker 镜像是一个特殊的文件系统，除了提供容器运行时所需的程序、库、资源、配置等文件外，还包含了一些为运行时准备的一些配置参数（如匿名卷、环境变量、用户等）。镜像不包含任何动态数据，其内容在构建之后也不会被改变。</p>
-</blockquote>
-<blockquote>
-<p>容器：镜像（<code>Image</code>）和容器（<code>Container</code>）的关系，就像是面向对象程序设计中的 <code>类</code> 和 <code>实例</code> 一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
-<p>按照 Docker 最佳实践的要求，容器不应该向其存储层内写入任何数据，容器存储层要保持无状态化。所有的文件写入操作，都应该使用 数据卷（Volume）、或者绑定宿主目录，在这些位置的读写会跳过容器存储层，直接对宿主（或网络存储）发生读写，其性能和稳定性更高。<em><em>分离服务和数据</em></em></p>
-<p>数据卷的生存周期独立于容器，容器消亡，数据卷不会消亡。因此，使用数据卷后，容器删除或者重新运行之后，数据却不会丢失。</p>
-</blockquote>
-<blockquote>
-<p>仓库：镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，<a href="https://yeasy.gitbooks.io/docker_practice/repository/registry.html" target="_blank" rel="noopener">Docker Registry</a> 就是这样的服务。</p>
-</blockquote>
-<h2 id="docker-compose-简介"><a href="#docker-compose-简介" class="headerlink" title="docker-compose 简介"></a>docker-compose 简介</h2><h3 id="docker-三剑客"><a href="#docker-三剑客" class="headerlink" title="docker 三剑客"></a>docker 三剑客</h3><ul>
-<li>compose</li>
-<li>machine</li>
-<li>swarm</li>
-</ul>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
-<p><code>Compose</code> 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。</p>
-<p><code>Compose</code> 定位是 「定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applications）。</p>
-</blockquote>
-<blockquote>
-<p><code>Compose</code> 中有两个重要的概念：</p>
-<ul>
-<li>服务 (<code>service</code>)：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。</li>
-<li>项目 (<code>project</code>)：由一组关联的应用容器组成的一个完整业务单元，在 <code>docker-compose.yml</code> 文件中定义。</li>
-</ul>
-</blockquote>
-<blockquote>
-<p><code>Compose</code> 项目由 Python 编写，实现上调用了 Docker 服务提供的 API 来对容器进行管理。（也就是说compose只是包装了docker的一些API，便于使用，并没有改变docker的性质）</p>
-</blockquote>
-<h2 id="使用他人的-dockerfile-docker-compose-yml"><a href="#使用他人的-dockerfile-docker-compose-yml" class="headerlink" title="使用他人的 dockerfile/docker-compose.yml"></a>使用他人的 dockerfile/docker-compose.yml</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">version: &quot;3&quot;</span><br><span class="line">services:</span><br><span class="line">  nginx:</span><br><span class="line">    image: nginx:alpine #指定镜像</span><br><span class="line">    ports: #端口映射</span><br><span class="line">      - &quot;80:80&quot;</span><br><span class="line">      - &quot;443:443&quot;</span><br><span class="line">    volumes: #数据卷挂载</span><br><span class="line">      - ./www/:/var/www/html/:rw</span><br><span class="line">      - ./conf/conf.d:/etc/nginx/conf.d/:ro</span><br><span class="line">      - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro</span><br><span class="line">      - ./log/:/var/log/dnmp/:rw</span><br><span class="line">    networks: #网络</span><br><span class="line">      - net-php</span><br><span class="line"></span><br><span class="line">  php:</span><br><span class="line">    build: ./php/php72 #这里与指定镜像不同的是，指定了一个构建docker镜像的目录，根据目录下的dockerfile构建镜像</span><br><span class="line">    expose:</span><br><span class="line">      - &quot;9000&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./www/:/var/www/html/:rw</span><br><span class="line">      - ./conf/php.ini:/usr/local/etc/php/php.ini:ro</span><br><span class="line">      - ./conf/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw</span><br><span class="line">      - ./log/:/var/log/dnmp/:rw</span><br><span class="line">    networks:</span><br><span class="line">      - net-php</span><br><span class="line">      - net-mysql</span><br><span class="line">      - net-redis</span><br><span class="line"></span><br><span class="line">  mysql:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;3306:3306&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./conf/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro</span><br><span class="line">      - ./mysql/:/var/lib/mysql/:rw</span><br><span class="line">    networks:</span><br><span class="line">      - net-mysql</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: &quot;123456&quot;</span><br><span class="line"></span><br><span class="line">  redis:</span><br><span class="line">    image: redis:4.0</span><br><span class="line">    command: redis-server /usr/local/etc/redis/redis.conf --requirepass mypassword #指定镜像运行时使用的命令</span><br><span class="line">    networks:</span><br><span class="line">      - net-redis</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;6379:6379&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  net-php:</span><br><span class="line">  net-mysql:</span><br><span class="line">  net-redis:</span><br></pre></td></tr></table></figure>
-<h2 id="部署及使用"><a href="#部署及使用" class="headerlink" title="部署及使用"></a>部署及使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker-compose up [-d]</span><br><span class="line">&gt; docker-compose logs</span><br><span class="line">&gt; docker-compose inspect</span><br><span class="line">&gt; docker-compose ps</span><br><span class="line">&gt; docker inspect [container]</span><br></pre></td></tr></table></figure>
-<h3 id="参考示例"><a href="#参考示例" class="headerlink" title="参考示例"></a>参考示例</h3><p><a href="https://github.com/Qinzhehan52/dnmp" target="_blank" rel="noopener">github dnmp</a></p>
-<h2 id="docker实验新特性（基于资源分离的特性）"><a href="#docker实验新特性（基于资源分离的特性）" class="headerlink" title="docker实验新特性（基于资源分离的特性）"></a>docker实验新特性（基于资源分离的特性）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker run --name <span class="built_in">test</span>-mysql -e MYSQL_ROOT_PASSWORD=mypassword -d mysql:5.7</span><br><span class="line">&gt; docker <span class="built_in">exec</span> -it <span class="built_in">test</span>-mysql bash</span><br></pre></td></tr></table></figure>
-<p>参考链接：<a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">Docker—从入门到实践</a></p>
-
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>扫码投食<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/04/17/docker部署lnmp/" class="archive-article-date">
+  	<time datetime="2019-04-17T12:31:33.333Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
+</a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://blog.netberd.top/2019/03/19/docker部署lnmp/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-  
-    <a href="/2019/03/19/mbp外接屏幕开启HiDPI/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/04/17/mbp外接屏幕开启HiDPI/" class="archive-article-date">
+  	<time datetime="2019-04-17T12:31:33.333Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/04/17/v2ray体验/" class="archive-article-date">
+  	<time datetime="2019-04-17T12:31:33.333Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
+</a>
+        </div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
   
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -398,8 +245,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
