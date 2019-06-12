@@ -255,7 +255,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/07/docker部署lnmp/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/12/docker部署lnmp/">展开全文 >></a>
         </p>
       
 
@@ -337,7 +337,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/07/mbp外接屏幕开启HiDPI/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/12/mbp外接屏幕开启HiDPI/">展开全文 >></a>
         </p>
       
 
@@ -392,7 +392,110 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/07/v2ray体验/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/12/v2ray体验/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-科学上网n步曲" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/12/科学上网n步曲/">科学上网n步曲</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/12/科学上网n步曲/" class="archive-article-date">
+  	<time datetime="2019-06-12T06:02:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-shadowsockr-socks5代理-搭建"><a href="#一-shadowsockr-socks5代理-搭建" class="headerlink" title="一. shadowsockr (socks5代理) 搭建"></a>一. shadowsockr (socks5代理) 搭建</h2><p>参考博客<a href="https://www.flyzy2005.com/fan-qiang/shadowsocks/install-shadowsocks-in-one-command/" target="_blank" rel="noopener">一键脚本搭建SS/搭建SSR服务并开启BBR加速
+</a></p>
+<p><strong>访问需要配置host</strong> <code>104.27.133.214 www.flyzy2005.com</code></p>
+<ol>
+<li>下载一键安装脚本 <code>git clone -b master https://github.com/flyzy2005/ss-fly</code></li>
+<li>运行安装脚本    </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ss-fly/ss-fly.sh -ssr</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>按照提示输入所需参数即可，完成后终端显示内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Congratulations, ShadowsocksR server install completed!</span><br><span class="line">Your Server IP        :你的服务器ip</span><br><span class="line">Your Server Port      :你的端口</span><br><span class="line">Your Password         :你的密码</span><br><span class="line">Your Protocol         :你的协议</span><br><span class="line">Your obfs             :你的混淆</span><br><span class="line">Your Encryption Method:your_encryption_method</span><br><span class="line"> </span><br><span class="line">Welcome to visit:https://shadowsocks.be/9.html</span><br><span class="line">Enjoy it!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一些管理命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ssr略有不同 注意调整</span></span><br><span class="line"><span class="comment">#启动：</span></span><br><span class="line">/etc/init.d/shadowsocks start</span><br><span class="line"><span class="comment">#停止：</span></span><br><span class="line">/etc/init.d/shadowsocks stop</span><br><span class="line"><span class="comment">#重启：</span></span><br><span class="line">/etc/init.d/shadowsocks restart</span><br><span class="line"><span class="comment">#状态：</span></span><br><span class="line">/etc/init.d/shadowsocks status</span><br><span class="line"> </span><br><span class="line"><span class="comment">#配置文件路径：</span></span><br><span class="line">/etc/shadowsocks.json</span><br><span class="line"><span class="comment">#日志文件路径：</span></span><br><span class="line">/var/<span class="built_in">log</span>/shadowsocks.log</span><br><span class="line"><span class="comment">#代码安装目录：</span></span><br><span class="line">/usr/<span class="built_in">local</span>/shadowsocks</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="二-socks5-转-http-代理"><a href="#二-socks5-转-http-代理" class="headerlink" title="二. socks5 转 http 代理"></a>二. socks5 转 http 代理</h2><h3 id="cow"><a href="#cow" class="headerlink" title="cow"></a>cow</h3><p>cow项目首页具有完善的wiki，可以参考以ss提供的socks5代理搭建http代理<a href="https://github.com/cyfdecyf/cow" target="_blank" rel="noopener">cow on github</a></p>
+<h3 id="polipo"><a href="#polipo" class="headerlink" title="polipo"></a>polipo</h3><p><a href="https://zxc0328.github.io/2017/03/26/proxy-for-terminal/" target="_blank" rel="noopener">mac 安装polipo和使用</a></p>
+<h4 id="补充内容"><a href="#补充内容" class="headerlink" title="补充内容"></a>补充内容</h4><p>自定义polipo运行的端口，类似文中修改parentrProxy</p>
+<figure class="highlight plist"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>homebrew.mxcl.polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>RunAtLoad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>KeepAlive<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">true</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">string</span>&gt;</span>/usr/local/opt/polipo/bin/polipo<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">string</span>&gt;</span>socksParentProxy=127.0.0.1:1080<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 修改运行端口 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">string</span>&gt;</span>proxyPort=7777<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Set `ulimit -n 65536`. The default macOS limit is 256, that's</span></span><br><span class="line"><span class="comment">         not enough for Polipo (displays 'too many files open' errors).</span></span><br><span class="line"><span class="comment">         It seems like you have no reason to lower this limit</span></span><br><span class="line"><span class="comment">         (and unlikely will want to raise it). --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">key</span>&gt;</span>SoftResourceLimits<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">key</span>&gt;</span>NumberOfFiles<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">integer</span>&gt;</span>65536<span class="tag">&lt;/<span class="name">integer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三-终端使用代理"><a href="#三-终端使用代理" class="headerlink" title="三. 终端使用代理"></a>三. 终端使用代理</h2><h3 id="终端中代理http请求"><a href="#终端中代理http请求" class="headerlink" title="终端中代理http请求"></a>终端中代理http请求</h3><h4 id="临时使用"><a href="#临时使用" class="headerlink" title="临时使用"></a>临时使用</h4><p>proxychains 其实并不能把socks5代理转成http代理，但是要把他写在前面。对于npm git wget等操作，使用proxychains即可使其通过socks5代理成功访问目标地址。其原理是Hook 了 sockets 相关的操作，让普通程序的 sockets 数据走 SOCKS/HTTP 代理。</p>
+<h5 id="mac安装proxychains4"><a href="#mac安装proxychains4" class="headerlink" title="mac安装proxychains4"></a>mac安装proxychains4</h5><ol>
+<li>重启到安全模式，终端执行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">csrutil <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>重启，终端执行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install proxychains-ng <span class="comment">#安装</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改配置,其中socks5代理可以换成<code>cow</code>或<code>polipo</code>的http代理<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/local/etc/proxychains.conf ~/.proxychains/proxychains.conf</span><br><span class="line">echo &apos;socks5  127.0.0.1 1086&apos; &gt;&gt; ~/.proxychains/proxychains.conf</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><strong>NOTICE: go get操作使用<code>proxychains</code>会报错</strong></p>
+<h4 id="长期使用"><a href="#长期使用" class="headerlink" title="长期使用"></a>长期使用</h4><h2 id="shadowsocksr-proxychains-polipo-解决方案"><a href="#shadowsocksr-proxychains-polipo-解决方案" class="headerlink" title="shadowsocksr + proxychains + polipo 解决方案"></a>shadowsocksr + proxychains + polipo 解决方案</h2><p>这套方案的好处是具备 http 和 socks5 两套代理，基本可以应对各种情况下的需求，尤其是本地的 golang 开发环境比较特殊，不适合安装<code>cow</code></p>
+<h3 id="几条方便科学上网的alias"><a href="#几条方便科学上网的alias" class="headerlink" title="几条方便科学上网的alias"></a>几条方便科学上网的alias</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> fuckgfw=<span class="string">"export http_proxy=127.0.0.1:8123 https_proxy=127.0.0.1:8123&amp;&amp; echo '&gt; You are out!'"</span></span><br><span class="line"><span class="built_in">alias</span> unfuckgfw=<span class="string">"unset http_proxy https_proxy &amp;&amp; echo '&gt; Welcome inside ;)'"</span></span><br><span class="line"><span class="built_in">alias</span> myip=<span class="string">"curl cip.cc"</span></span><br><span class="line"><span class="built_in">alias</span> fq=<span class="string">"proxychains4"</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/12/科学上网n步曲/">展开全文 >></a>
         </p>
       
 
