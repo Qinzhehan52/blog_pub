@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="golang cmux,">
 
 
 
@@ -79,13 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="SeekRVL 的笔记">
-<meta property="og:url" content="http://blog.netberd.top/index.html">
+<meta name="description" content="cmux 是什么 cmux is a generic Go library to multiplex connections based on their payload. Using cmux, you can serve gRPC, SSH, HTTPS, HTTP, Go RPC, and pretty much any other protocol on the same TCP list">
+<meta name="keywords" content="golang cmux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmux 多协议服务失败debug记录">
+<meta property="og:url" content="http://blog.netberd.top/2019/06/16/cmux使用笔记/index.html">
 <meta property="og:site_name" content="SeekRVL 的笔记">
+<meta property="og:description" content="cmux 是什么 cmux is a generic Go library to multiplex connections based on their payload. Using cmux, you can serve gRPC, SSH, HTTPS, HTTP, Go RPC, and pretty much any other protocol on the same TCP list">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-16T04:07:29.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SeekRVL 的笔记">
+<meta name="twitter:title" content="cmux 多协议服务失败debug记录">
+<meta name="twitter:description" content="cmux 是什么 cmux is a generic Go library to multiplex connections based on their payload. Using cmux, you can serve gRPC, SSH, HTTPS, HTTP, Go RPC, and pretty much any other protocol on the same TCP list">
 
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.netberd.top/">
+  <link rel="canonical" href="http://blog.netberd.top/2019/06/16/cmux使用笔记/">
 
 
 
 
 
-  <title>SeekRVL 的笔记</title>
+  <title>cmux 多协议服务失败debug记录 | SeekRVL 的笔记</title>
   
 
 
@@ -140,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +218,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/16/cmux使用笔记/" itemprop="url">cmux 多协议服务失败debug记录</a></h1>
+          <h1 class="post-title" itemprop="name headline">cmux 多协议服务失败debug记录</h1>
         
 
         <div class="post-meta">
@@ -298,9 +300,7 @@
       
 
       
-        
-          
-            <h2 id="cmux-是什么"><a href="#cmux-是什么" class="headerlink" title="cmux 是什么"></a>cmux 是什么</h2><blockquote>
+        <h2 id="cmux-是什么"><a href="#cmux-是什么" class="headerlink" title="cmux 是什么"></a>cmux 是什么</h2><blockquote>
 <p>cmux is a generic Go library to multiplex connections based on their payload. Using cmux, you can serve gRPC, SSH, HTTPS, HTTP, Go RPC, and pretty much any other protocol on the same TCP listener.</p>
 </blockquote>
 <h2 id="cmux-使用过程中的问题"><a href="#cmux-使用过程中的问题" class="headerlink" title="cmux 使用过程中的问题"></a>cmux 使用过程中的问题</h2><p><strong>现象</strong>：</p>
@@ -313,8 +313,6 @@
 <p>对比 <code>cmux</code> 库自带的 example 没有很大的区别, <strong>但是通过注释我们可以注意到， <code>Match</code> 的顺序很重要</strong></p>
 <p>仔细对比之后发现的确两段 <code>Match</code> 的顺序有所不同，无论是 <code>grpc</code> 请求还是 <code>websocket</code> 的握手请求，都只是特殊化的 <code>http</code> 请求，使用 <code>cmux</code> 时要注意 <code>Match</code> 的顺序，避免服务端将 <code>grpc</code> 请求和  <code>websocket</code> 的握手请求当做 <code>http2</code> <code>http1</code> 请求处理。</p>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">m := cmux.New(l)</span><br><span class="line"></span><br><span class="line"><span class="comment">// We first match the connection against HTTP2 fields. If matched, the</span></span><br><span class="line"><span class="comment">// connection will be sent through the "grpcl" listener.</span></span><br><span class="line">grpcl := m.Match(cmux.HTTP2HeaderFieldPrefix(<span class="string">"content-type"</span>, <span class="string">"application/grpc"</span>))</span><br><span class="line"><span class="comment">//Otherwise, we match it againts a websocket upgrade request.</span></span><br><span class="line">wsl := m.Match(cmux.HTTP1HeaderField(<span class="string">"Upgrade"</span>, <span class="string">"websocket"</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">// Otherwise, we match it againts HTTP1 methods. If matched,</span></span><br><span class="line"><span class="comment">// it is sent through the "httpl" listener.</span></span><br><span class="line">httpl := m.Match(cmux.HTTP1Fast())</span><br><span class="line"><span class="comment">// If not matched by HTTP, we assume it is an RPC connection.</span></span><br><span class="line">rpcl := m.Match(cmux.Any())</span><br><span class="line"></span><br><span class="line"><span class="comment">// Then we used the muxed listeners.</span></span><br><span class="line"><span class="keyword">go</span> serveGRPC(grpcl)</span><br><span class="line"><span class="keyword">go</span> serveWS(wsl)</span><br><span class="line"><span class="keyword">go</span> serveHTTP(httpl)</span><br><span class="line"><span class="keyword">go</span> serveRPC(rpcl)</span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -329,277 +327,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.netberd.top/2019/06/12/科学上网n步曲/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SeekRVL">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SeekRVL 的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/12/科学上网n步曲/" itemprop="url">科学上网n步曲</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-12T14:02:50+08:00">
-                2019-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/golang-cmux/" rel="tag"># golang cmux</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="一-shadowsockr-socks5代理-搭建"><a href="#一-shadowsockr-socks5代理-搭建" class="headerlink" title="一. shadowsockr (socks5代理) 搭建"></a>一. shadowsockr (socks5代理) 搭建</h2><p>参考博客<a href="https://www.flyzy2005.com/fan-qiang/shadowsocks/install-shadowsocks-in-one-command/" target="_blank" rel="noopener">一键脚本搭建SS/搭建SSR服务并开启BBR加速
-</a></p>
-<p><strong>访问需要配置host</strong> <code>104.27.133.214 www.flyzy2005.com</code></p>
-<ol>
-<li>下载一键安装脚本 <code>git clone -b master https://github.com/flyzy2005/ss-fly</code></li>
-<li>运行安装脚本     <em>ubuntu系统目前默认shell是<code>dash</code>,注意切换</em><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ss-fly/ss-fly.sh -ssr</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/12/科学上网n步曲/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/12/科学上网n步曲/" rel="next" title="科学上网n步曲">
+                <i class="fa fa-chevron-left"></i> 科学上网n步曲
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.netberd.top/2019/05/25/terminal尝试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SeekRVL">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SeekRVL 的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/25/terminal尝试/" itemprop="url">terminal尝试</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-25T18:53:05+08:00">
-                2019-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="前置工作（环境搭建）"><a href="#前置工作（环境搭建）" class="headerlink" title="前置工作（环境搭建）"></a>前置工作（环境搭建）</h2><ul>
-<li><p>系统版本在 Windows 1903 (build &gt;= 10.0.18362.0) 以上</p>
-</li>
-<li><p>安装Visual Studio 2017 或 2019</p>
-</li>
-<li><p>clone 代码到本地 <a href="https://github.com/microsoft/terminal.git" target="_blank" rel="noopener">https://github.com/microsoft/terminal.git</a></p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/25/terminal尝试/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -609,276 +366,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.netberd.top/2018/11/27/mbp外接屏幕开启HiDPI/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SeekRVL">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SeekRVL 的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/mbp外接屏幕开启HiDPI/" itemprop="url">mbp 外接显示器开启HiDPI</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T14:02:50+08:00">
-                2018-11-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="mbp-外接显示器开启HiDPI"><a href="#mbp-外接显示器开启HiDPI" class="headerlink" title="mbp 外接显示器开启HiDPI"></a>mbp 外接显示器开启HiDPI</h1><h2 id="1-首先，打开系统分区权限："><a href="#1-首先，打开系统分区权限：" class="headerlink" title="1. 首先，打开系统分区权限："></a>1. 首先，打开系统分区权限：</h2><h3 id="查看SIP状态"><a href="#查看SIP状态" class="headerlink" title="查看SIP状态"></a>查看SIP状态</h3><blockquote>
-<p>在终端中输入csrutil status，就可以看到是enabled还是disabled。</p>
-</blockquote>
-<h3 id="关闭SIP"><a href="#关闭SIP" class="headerlink" title="关闭SIP"></a>关闭SIP</h3><blockquote>
-<ul>
-<li>重启MAC，按住cmd+R直到屏幕上出现苹果的标志和进度条，进入Recovery模式；</li>
-<li>在屏幕最上方的工具栏找到实用工具（左数第3个），打开终端，输入：csrutil disable；</li>
-<li>关掉终端，重启mac；</li>
-<li>重启以后可以在终端中查看状态确认。</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/27/mbp外接屏幕开启HiDPI/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.netberd.top/2018/10/29/docker部署lnmp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SeekRVL">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SeekRVL 的笔记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/29/docker部署lnmp/" itemprop="url">docker 部署 LNMP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-29T14:02:50+08:00">
-                2018-10-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="docker-部署-LNMP"><a href="#docker-部署-LNMP" class="headerlink" title="docker 部署 LNMP"></a>docker 部署 LNMP</h1><h2 id="docker-简介"><a href="#docker-简介" class="headerlink" title="docker 简介"></a>docker 简介</h2><h3 id="什么是docker"><a href="#什么是docker" class="headerlink" title="什么是docker"></a>什么是docker</h3><blockquote>
-<p>Docker 使用 Google 公司推出的 <a href="https://golang.org/" target="_blank" rel="noopener">Go 语言</a> 进行开发实现，基于 Linux 内核的 <a href="https://zh.wikipedia.org/wiki/Cgroups" target="_blank" rel="noopener">cgroup</a>，<a href="https://en.wikipedia.org/wiki/Linux_namespaces" target="_blank" rel="noopener">namespace</a>，以及<a href="https://en.wikipedia.org/wiki/Aufs" target="_blank" rel="noopener">AUFS</a> 类的 <a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="noopener">Union FS</a> 等技术，对进程进行封装隔离，属于 <a href="https://en.wikipedia.org/wiki/Operating-system-level_virtualization" target="_blank" rel="noopener">操作系统层面的虚拟化技术</a>。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。</p>
-</blockquote>
-<blockquote>
-<p>Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻便、快捷。</p>
-</blockquote>
-<blockquote>
-<p>下面的图片比较了 Docker 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需应用进程；而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟。因此容器要比传统虚拟机更为轻便。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/29/docker部署lnmp/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -886,6 +378,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -906,8 +402,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -960,6 +465,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cmux-是什么"><span class="nav-number">1.</span> <span class="nav-text">cmux 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cmux-使用过程中的问题"><span class="nav-number">2.</span> <span class="nav-text">cmux 使用过程中的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1093,6 +614,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
