@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="SeekRVL 的笔记">
 <meta property="og:description" content="一. shadowsockr (socks5代理) 搭建参考博客一键脚本搭建SS/搭建SSR服务并开启BBR加速  访问需要配置host 104.27.133.214 www.flyzy2005.com  下载一键安装脚本 git clone -b master https://github.com/flyzy2005/ss-fly 运行安装脚本     ubuntu系统目前默认shell是das">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-17T08:17:01.053Z">
+<meta property="og:updated_time" content="2019-10-26T10:10:30.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="科学上网n步曲">
 <meta name="twitter:description" content="一. shadowsockr (socks5代理) 搭建参考博客一键脚本搭建SS/搭建SSR服务并开启BBR加速  访问需要配置host 104.27.133.214 www.flyzy2005.com  下载一键安装脚本 git clone -b master https://github.com/flyzy2005/ss-fly 运行安装脚本     ubuntu系统目前默认shell是das">
@@ -398,9 +398,23 @@
 
 </li>
 </ol>
-<p><strong>NOTICE: go get操作使用<code>proxychains</code>会报错</strong></p>
-<h4 id="长期使用"><a href="#长期使用" class="headerlink" title="长期使用"></a>长期使用</h4><h2 id="shadowsocksr-proxychains-polipo-解决方案"><a href="#shadowsocksr-proxychains-polipo-解决方案" class="headerlink" title="shadowsocksr + proxychains + polipo 解决方案"></a>shadowsocksr + proxychains + polipo 解决方案</h2><p>这套方案的好处是具备 http 和 socks5 两套代理，基本可以应对各种情况下的需求，尤其是本地的 golang 开发环境比较特殊，不适合安装<code>cow</code></p>
+<p><strong>NOTICE: go get操作使用<code>proxychains</code>会报错</strong></p>
+<h4 id="长期使用"><a href="#长期使用" class="headerlink" title="长期使用"></a>长期使用</h4><h2 id="shadowsocksr-proxychains-polipo-解决方案"><a href="#shadowsocksr-proxychains-polipo-解决方案" class="headerlink" title="shadowsocksr + proxychains + polipo 解决方案"></a>shadowsocksr + proxychains + polipo 解决方案</h2><p>这套方案的好处是具备 http 和 socks5 两套代理，基本可以应对各种情况下的需求，尤其是本地的 golang 开发环境比较特殊，不适合安装<code>cow</code></p>
 <h3 id="几条方便科学上网的alias"><a href="#几条方便科学上网的alias" class="headerlink" title="几条方便科学上网的alias"></a>几条方便科学上网的alias</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> fuckgfw=<span class="string">"export http_proxy=127.0.0.1:8123 https_proxy=127.0.0.1:8123&amp;&amp; echo '&gt; You are out!'"</span></span><br><span class="line"><span class="built_in">alias</span> unfuckgfw=<span class="string">"unset http_proxy https_proxy &amp;&amp; echo '&gt; Welcome inside ;)'"</span></span><br><span class="line"><span class="built_in">alias</span> myip=<span class="string">"curl cip.cc"</span></span><br><span class="line"><span class="built_in">alias</span> fq=<span class="string">"proxychains4"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>2019年，70年大庆，使用的<code>ssr</code>挂了一大批，目前使用<code>v2ray</code>进行科学上网。</p>
+<p><code>v2ray</code>的服务端搭建也是专门的脚本的，<code>windows android macos</code> 都有好用的第三方具备<code>GUI</code>的客户端。</p>
+<p><code>v2ray</code>客户端一般自带了<code>sock5</code>和 <code>http</code>代理。</p>
+<blockquote>
+<p>ps: <code>ios</code>上可以使用<code>shadowracket</code>等APP作为<code>v2ray</code>客户端</p>
+</blockquote>
+<p><em>下面是一些相关资源 ：</em></p>
+<ul>
+<li><a href="https://github.com/233boy/v2ray" target="_blank" rel="noopener">v2ray服务端脚本</a></li>
+<li><a href="https://github.com/2dust/v2rayN" target="_blank" rel="noopener">v2ray windows 客户端(.net framework 4.6)</a></li>
+<li><a href="https://github.com/yanue/V2rayU" target="_blank" rel="noopener">v2ray macos客户端</a></li>
+</ul>
+
       
     </div>
     
@@ -580,7 +594,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-shadowsockr-socks5代理-搭建"><span class="nav-number">1.</span> <span class="nav-text">一. shadowsockr (socks5代理) 搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-socks5-转-http-代理"><span class="nav-number">2.</span> <span class="nav-text">二. socks5 转 http 代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cow"><span class="nav-number">2.1.</span> <span class="nav-text">cow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polipo"><span class="nav-number">2.2.</span> <span class="nav-text">polipo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#补充内容"><span class="nav-number">2.2.1.</span> <span class="nav-text">补充内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-终端使用代理"><span class="nav-number">3.</span> <span class="nav-text">三. 终端使用代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#终端中代理http请求"><span class="nav-number">3.1.</span> <span class="nav-text">终端中代理http请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#临时使用"><span class="nav-number">3.1.1.</span> <span class="nav-text">临时使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mac安装proxychains4"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">mac安装proxychains4</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#长期使用"><span class="nav-number">3.1.2.</span> <span class="nav-text">长期使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shadowsocksr-proxychains-polipo-解决方案"><span class="nav-number">4.</span> <span class="nav-text">shadowsocksr + proxychains + polipo 解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几条方便科学上网的alias"><span class="nav-number">4.1.</span> <span class="nav-text">几条方便科学上网的alias</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-shadowsockr-socks5代理-搭建"><span class="nav-number">1.</span> <span class="nav-text">一. shadowsockr (socks5代理) 搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-socks5-转-http-代理"><span class="nav-number">2.</span> <span class="nav-text">二. socks5 转 http 代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cow"><span class="nav-number">2.1.</span> <span class="nav-text">cow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#polipo"><span class="nav-number">2.2.</span> <span class="nav-text">polipo</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#补充内容"><span class="nav-number">2.2.1.</span> <span class="nav-text">补充内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-终端使用代理"><span class="nav-number">3.</span> <span class="nav-text">三. 终端使用代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#终端中代理http请求"><span class="nav-number">3.1.</span> <span class="nav-text">终端中代理http请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#临时使用"><span class="nav-number">3.1.1.</span> <span class="nav-text">临时使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#mac安装proxychains4"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">mac安装proxychains4</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#长期使用"><span class="nav-number">3.1.2.</span> <span class="nav-text">长期使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shadowsocksr-proxychains-polipo-解决方案"><span class="nav-number">4.</span> <span class="nav-text">shadowsocksr + proxychains + polipo 解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几条方便科学上网的alias"><span class="nav-number">4.1.</span> <span class="nav-text">几条方便科学上网的alias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">4.2.</span> <span class="nav-text">后记</span></a></li></ol></li></ol></div>
             
 
           </div>
