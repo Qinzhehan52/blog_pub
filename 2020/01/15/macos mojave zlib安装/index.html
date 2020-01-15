@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="SeekRVL 的笔记">
 <meta property="og:description" content="遇到的问题编译安装 php7.2 时，configure 显示找不到 zlib 解决方法1installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /  执行这条命令后反馈安装失败，重新执行 configure 仍找不到 zlib 先执行  1">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-15T10:52:13.164Z">
+<meta property="og:updated_time" content="2020-01-15T10:54:26.699Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="macos mojave zlib安装">
 <meta name="twitter:description" content="遇到的问题编译安装 php7.2 时，configure 显示找不到 zlib 解决方法1installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /  执行这条命令后反馈安装失败，重新执行 configure 仍找不到 zlib 先执行  1">
@@ -339,6 +339,9 @@
 
 <p>  再执行 </p>
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+
+<p>再执行一次</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /</span><br></pre></td></tr></table></figure>
 
 <p>  成功</p>
 
